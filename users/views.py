@@ -11,6 +11,18 @@ from users.models import Profile
 
 # Exceptions
 from django.db.utils import IntegrityError
+from django.contrib.auth.models import User
+from users.models import Profile
+
+def update_profile(request):
+    """ Update user's profile view. """
+
+    profile = request.user.profile
+
+    return render(request, template_name = 'users/update_profile.html', context={
+        'profile': profile,
+        'user': request.user
+    })
 
 def signup(request):
     """ sign up view """
@@ -35,8 +47,7 @@ def signup(request):
         user.save()
 
         # create profile for user
-        profile = Profile(user=user)
-        profile.save()
+        profile = Profile.objects.get_or_create(user=user)
 
         return redirect('login')
         

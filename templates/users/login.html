@@ -8,6 +8,8 @@
 
     {% if login_error %}
         <p class="alert alert-danger">{{ login_error}} </p>
+    {% elif profile_error %}
+        <p class="alert alert-danger">{{ profile_error}} </p>
     {% endif %}
 
     <form method="POST" action="{% url "login" %}">
