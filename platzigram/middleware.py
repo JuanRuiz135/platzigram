@@ -1,8 +1,7 @@
 """ Platzigram middleware catalog """
 
 # Django
-from django.shortcuts import redirect, render
-from django.contrib.auth import logout
+from django.shortcuts import redirect
 from users.models import Profile
 from django.urls import reverse
 
@@ -20,11 +19,12 @@ class ProfileCompletionMiddleware:
         """ Code to be executed for each request before the view is called. """
         # first check if the user is logged in
         if not request.user.is_anonymous:
-            profile = request.user.profile
-            # check if the profile picture or the biography exists
-            if not profile.picture or not profile.biography:
-                if request.path not in [reverse('update_profile'), reverse('logout')]:
-                    return redirect('update_profile')
+            if not request.user.is_staff:
+                profile = request.user.profile
+                # check if the profile picture or the biography exists
+                if not profile.picture or not profile.biography:
+                    if request.path not in [reverse('update_profile'), reverse('logout')]:
+                        return redirect('update_profile')
         
         response = self.get_response(request)
         return response
