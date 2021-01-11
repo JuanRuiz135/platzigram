@@ -16,17 +16,19 @@ from users import views as users_views
 
 
 urlpatterns = [
-
+    # Admin url path
     path('admin/', admin.site.urls, name='admin'),
-
-    path('hi/', local_views.hi, name='hi'),
-    path('posts/', posts_views.list_posts, name='feed'),
-
+    
+    #path('hi/', local_views.hi, name='hi'),
+    
+    # Posts url paths
+    path('', posts_views.list_posts, name='feed'),
+    path('posts/new/', posts_views.create_post, name='create_post'),
+    
+    # User url paths
     path('users/login/', users_views.login_view, name='login'),
     path('users/logout/', users_views.logout_view, name='logout'),
-
     path('users/signup/', users_views.signup, name='signup'),
-
     path('users/me/profile', users_views.update_profile, name='update_profile'),
 
 
