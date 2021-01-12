@@ -7,13 +7,6 @@ from django.views.generic import TemplateView
 from users import views
 
 urlpatterns = [
-
-    # Posts
-    path(
-        route='@<str:username>/',
-        view=  views.UserDetailView.as_view(),
-        name='detail'
-    ),
     # User management
     path(
         route='login/', 
@@ -27,12 +20,18 @@ urlpatterns = [
     ),
     path(
         route='signup/',
-        view=views.signup,
+        view=views.SignupView.as_view(),
         name='signup'
     ),
     path(
         route='me/profile',
-        view=views.update_profile,
+        view=views.UpdateProfileView.as_view(),
         name='update_profile'
+    ),
+     # Posts
+    path(
+        route='@<str:username>/',
+        view=  views.UserDetailView.as_view(),
+        name='detail'
     ),
 ]
